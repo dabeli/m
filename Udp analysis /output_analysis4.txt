@@ -1,0 +1,12 @@
+hrj@hrj-VB:~/Desktop/ns2$ awk -f wless4ana.awk wless4.tr
+Sent=372540
+Received=226523
+CBR Packets=758873
+AODV Packets=482
+
+hrj@hrj-VB:~/Desktop/ns2$ cat wless4.tr|grep "cbr"|wc -l
+758873
+
+hrj@hrj-VB:~/Desktop/ns2$ cat wless4.tr|grep "AODV"|wc -l
+482
+
