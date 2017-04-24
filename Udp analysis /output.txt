@@ -1,0 +1,11 @@
+dabeli@jumbo:~/NS2/MCC/Udp analysis /my$ awk -f MyUDPana.awk MyUDP.tr
+Sent=24039
+Received=15048
+CBR Packets=50456
+AODV Packets=710
+dabeli@jumbo:~/NS2/MCC/Udp analysis /my$ cat MyUDP.tr|grep "cbr"|wc -l
+50456
+dabeli@jumbo:~/NS2/MCC/Udp analysis /my$ cat MyUDP.tr|grep "AODV"|wc -l
+710
+dabeli@jumbo:~/NS2/MCC/Udp analysis /my$ 
+

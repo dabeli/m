@@ -1,8 +1,11 @@
-pk@HPDBU:~/NS2/MCC/Tcp analysis /my$ awk -f MyTCPana.awk MyTCP.tr
+dabeli@jumbo:~/NS2/MCC/Tcp analysis /my$ awk -f MyTCPana.awk MyTCP.tr
 Sent = 6500
 Received = 6744
 TCP packets = 6719
 TCP acknowledgments = 6414
 AODV packets = 315
-pk@HPDBU:~/NS2/MCC/Tcp analysis /my$ 
-
+dabeli@jumbo:~/NS2/MCC/Tcp analysis /my$ cat MyTCP.tr|grep "AODV"|wc -l
+315
+dabeli@jumbo:~/NS2/MCC/Tcp analysis /my$ cat MyTCP.tr|grep "tcp"|wc -l
+6719
+dabeli@jumbo:~/NS2/MCC/Tcp analysis /my$ 

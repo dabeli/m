@@ -76,7 +76,7 @@ proc finish {} {
 	close $namtrace
 	puts "Simulation end"
 	$ns halt
-	puts "exec awk -f MyTCPana.awk MyTCP.tr"
+	puts "awk -f MyTCPana.awk MyTCP.tr"
 	exec nam MyTCP.nam &
 	exit 0
 }
