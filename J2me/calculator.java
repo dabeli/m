@@ -9,21 +9,21 @@ public class calculator extends MIDlet implements CommandListener
  private Command add, sub, mul,div;
  private StringItem item;
 
- public calculator()
- {
-  
- }
+ public calculator() {}
+
  public void startApp()
  {
   display = Display.getDisplay(this);
-  Form form = new Form("Calculator");
+  form = new Form("Calculator");
   form.append("Hello everybody");
-  item = new StringItem("Result", "");
 
-  input1 = new TextField("First Number:", "", 30, TextField.NUMERIC);
-  input2 = new TextField("Second Number", "", 30, TextField.NUMERIC);
+  input1 = new TextField("First Number : ", "", 30, TextField.NUMERIC);
+  input2 = new TextField("Second Number : ", "", 30, TextField.NUMERIC);
   form.append(input1);
   form.append(input2);
+  item = new StringItem("Result : ", "");
+  form.append(item);
+
   add = new Command("Addition", Command.OK, 1);
   sub = new Command("Subtraction", Command.OK, 1);
   mul = new Command("Multiplication", Command.OK, 1);
@@ -32,7 +32,6 @@ public class calculator extends MIDlet implements CommandListener
   form.addCommand(sub);
   form.addCommand(mul);
   form.addCommand(div);
-  form.append(item);
 
   form.setCommandListener(this);
   
@@ -43,14 +42,38 @@ public class calculator extends MIDlet implements CommandListener
 
  public void destroyApp(boolean uncondn)
  {
-  notifyDestroyed();
+ 	notifyDestroyed();
  }
-    private void calculate()
- {int one=Integer.parseInt(input1.getString());
-  int two= Integer.parseInt(input2.getString());
-  int result=one+two;
-  item.setText( result + "" );
-
+ 
+ public void commandAction(Command c, Displayable d)
+ {
+  String label = c.getLabel();
+  if (label.equals("Addition"))
+  {
+   calculate();
+  }
+  
+  else if (label.equals("Subtraction"))
+  {
+   calculate1();
+  }
+  
+  else if (label.equals("Multiplication"))
+  {
+   calculate2();
+  }
+  
+  else if (label.equals("Division"))
+  {
+   calculate3();
+  }
+ }
+ private void calculate()
+ {
+ 	int one=Integer.parseInt(input1.getString());
+ 	int two= Integer.parseInt(input2.getString());
+  	int result=one+two;
+  	item.setText( result + "" );
  }
  private void calculate1()
  {
@@ -58,7 +81,6 @@ public class calculator extends MIDlet implements CommandListener
   int two = Integer.parseInt(input2.getString());
   int result = one - two;
   item.setText(result + "");
-
  }
  private void calculate2()
  {
@@ -66,41 +88,12 @@ public class calculator extends MIDlet implements CommandListener
   int two = Integer.parseInt(input2.getString());
   int result = one * two;
   item.setText(result + "");
-
  }
  private void calculate3()
  {
   int one = Integer.parseInt(input1.getString());
   int two = Integer.parseInt(input2.getString());
-  int result = one / two;
+  int result = (int)one / two;
   item.setText(result + "");
-
- }
- public void commandAction(Command c, Displayable d)
- {
-  String label = c.getLabel();
-  if (label.equals("Addition"))
-  {
-   calculate();
-   
-  }
-  
-  else if (label.equals("Subtraction"))
-  {
-   calculate1();
-   
-  }
-  
-  else if (label.equals("Multiplication"))
-  {
-   calculate2();
-   form.append("The Answer is:");
-  }
-  
-  else if (label.equals("Division"))
-  {
-   calculate3();
-   form.append("The Answer is:");
-  }
  }
 }

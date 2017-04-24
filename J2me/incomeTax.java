@@ -1,7 +1,6 @@
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.*; 
 import java.io.*;
-import java.lang.*;
 public class incomeTax extends MIDlet implements CommandListener
 {
  private Form form;
@@ -10,23 +9,20 @@ public class incomeTax extends MIDlet implements CommandListener
  private Command add;
  private StringItem item;
 
- public incomeTax()
- {
-  
- }
+ public incomeTax() {}
  public void startApp()
  {
   display = Display.getDisplay(this);
   form = new Form("Income Tax Calculator");
   form.append("Hello everybody");
-  item = new StringItem("Result", "");
 
   input1 = new TextField("Taxable Income:", "", 30, TextField.NUMERIC);
   form.append(input1);
-  add = new Command("Calculate Tax", Command.OK, 1);
-  form.addCommand(add);
+  item = new StringItem("Result : ", "");
   form.append(item);
 
+  add = new Command("Calculate Tax", Command.OK, 1);
+  form.addCommand(add);
   form.setCommandListener(this);
   
   display.setCurrent(form);
@@ -38,7 +34,8 @@ public class incomeTax extends MIDlet implements CommandListener
  {
   notifyDestroyed();
  }
-    private void calculate()
+
+ private void calculate()
  {
   int taxableincome=Integer.parseInt(input1.getString());
   int result;
@@ -52,15 +49,14 @@ public class incomeTax extends MIDlet implements CommandListener
             result = (taxableincome * 20/100);
         }
         item.setText(result+"");
-
  }
+
  public void commandAction(Command c, Displayable d)
  {
   String label = c.getLabel();
   if (label.equals("Calculate Tax"))
   {
    calculate();
-   
   }
  }
 }
