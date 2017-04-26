@@ -1,15 +1,13 @@
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.*; 
 import java.io.*;
-public class calculator extends MIDlet implements CommandListener
+public class calculator extends MidLet implements CommandListener
 {
  private Form form;
  private Display display;
  private TextField input1, input2;
  private Command add, sub, mul,div;
  private StringItem item;
-
- public calculator() {}
 
  public void startApp()
  {
@@ -31,21 +29,11 @@ public class calculator extends MIDlet implements CommandListener
   form.addCommand(add);
   form.addCommand(sub);
   form.addCommand(mul);
-  form.addCommand(div);
-
-  form.setCommandListener(this);
-  
+  form.addCommand(div);  
   display.setCurrent(form);
  }
 
- public void pauseApp() { }
-
- public void destroyApp(boolean uncondn)
- {
- 	notifyDestroyed();
- }
- 
- public void commandAction(Command c, Displayable d)
+ public void commandAction(Command cc, Displayable d)
  {
   String label = c.getLabel();
   if (label.equals("Addition"))
