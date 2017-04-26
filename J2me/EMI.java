@@ -1,7 +1,7 @@
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.*; 
 import java.io.*;
-public class EMI extends MIDlet implements CommandListener
+public class EMI extends MidLet implements CommandListener
 {
  private Form form;
  private Display display;
@@ -9,7 +9,6 @@ public class EMI extends MIDlet implements CommandListener
  private Command add;
  private StringItem item;
 
- public EMI() {}
  public void startApp()
  {
   display = Display.getDisplay(this);
@@ -25,17 +24,9 @@ public class EMI extends MIDlet implements CommandListener
   
   add = new Command("Calculate EMI", Command.OK, 1);
   form.addCommand(add);
-  form.setCommandListener(this);
-  
   display.setCurrent(form);
  }
 
- public void pauseApp() { }
-
- public void destroyApp(boolean uncondn)
- {
-  notifyDestroyed();
- }
     private void calculate()
  {
   int pri=Integer.parseInt(input1.getString());
@@ -43,7 +34,7 @@ public class EMI extends MIDlet implements CommandListener
   int result= pri*ri/100;
   item.setText( result + "" );
  }
- public void commandAction(Command c, Displayable d)
+ public void commandAction(Command cc, Displayable d)
  {
   String label = c.getLabel();
   if (label.equals("Calculate emi"))
