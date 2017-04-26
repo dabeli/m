@@ -1,16 +1,16 @@
-set val(chan)		Channel/WirelessChannel;
+set val(chan)		Channel/Wirelesschannel;
 set val(prop)		Propagation/TwoRayGround;
 set val(netif)		Phy/WirelessPhy;
 set val(ant)		Antenna/OmniAntenna;
-set val(mac)		Mac/802_11;
+set val(mac)		MAC/802_11;
 set val(ll)		LL;
 set val(rp)		AODV;
-set val(ifq)		Queue/DropTail/PriQueue;
+set val(ifq)		Queue/Droptail/PriQueue;
 set val(ifqlen)		50;
 set val(nn)		10;
 set val(x)		500;
 set val(y)		400;
-set val(start)		5;
+set val(start)		35;
 set val(stop)		25;
 
 set ns [new Simulator]
@@ -35,28 +35,28 @@ $ns node-config	-adhocRouting $val(rp)	\
 		-llType $val(ll)	\
 		-antType $val(ant)	\
 		-topoInstance $topo 	\
-		-agentTrace ON		\
-		-routerTrace ON		\
-		-macTrace OFF		\
-		-movementTrace ON
+		-agent Trace OFF		\
+		-router Trace OFF		\
+		-mac Trace ON		
+		-movement Trace ON
 
 for {set i 0} {$i<$val(nn)} {incr i} {
 	set node($i) [$ns node]
-	$node($i) set X_ [expr 10+round(rand()*480)]
-	$node($i) set Y_ [expr 10+round(rand()*380)]
+	$node($i) set X_ (expr 10+round(rand()*480))
+	$node($i) set Y_ (expr 10+round(rand()*380))
 	$node($i) set Z_ 0.0
 	$ns initial_node_pos $node($i) 30
 	$ns at val(stop) "$node($i) reset"
 }
 
-for {set i 0} {$i<[expr $val(nn)/2]} {incr i} {
+for {set i 0} {$i<(expr $val(nn)/2)} {incr i} {
 	$ns color 1 red
 	set tcp($i) [new Agent/TCP]
 	$tcp($i) set class_ 2
 	$tcp($i) set fid_ 1
 	$ns attach-agent $node($i) $tcp($i)
-	set sink([expr $val(nn)-$i-1]) [new Agent/TCPSink]
-	$ns attach-agent $node([expr $val(nn)-$i-1]) $sink([expr $val(nn)-$i-1])
+	set sink(expr $val(nn)-$i-1) [new Agent/TCPSink]
+	$ns attach-agent $node(expr $val(nn)-$i-1) $sink(expr $val(nn)-$i-1)
 	$ns connect $tcp($i) $sink([expr $val(nn)-$i-1])
 
 	set ftp($i) [new Application/FTP]
@@ -66,19 +66,15 @@ for {set i 0} {$i<[expr $val(nn)/2]} {incr i} {
 	$ftp($i) set rate_ 1mb
 	$ns at $val(start) "$ftp($i) start"
 }
-$ns at $val(stop) "$ns nam-end-wireless $val(stop)"
+$ns at $val(stop) "$ns nam-end-wireless"
 $ns at $val(stop) "finish"
 
 proc finish {} {
 	global ns tracefd namtrace
-	$ns flush-trace
 	close $tracefd
 	close $namtrace
 	puts "Simulation end"
 	$ns halt
-	puts "awk -f MyTCPana.awk MyTCP.tr"
-	exec nam MyTCP.nam &
-	exit 0
 }
 
 $ns run
